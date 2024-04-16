@@ -1,0 +1,24 @@
+.vertical-menu {
+  width: 250px;
+  height: 50vh;
+  overflow-y: auto;
+  background-color: #f8f4f4;
+}
+
+.vertical-menu div p{
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vertical-menu div p:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu div p.active {
+  background: linear-gradient(90deg, #13b8ff 0%, #048bc3 113.68%);
+  color: white;
+}
