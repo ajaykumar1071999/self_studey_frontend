@@ -1,11 +1,23 @@
 import axios from "axios";
-import { ROOT_URL } from "../constants/apiConstants";
-import { getSuccessLoggedIn, getUserInfo } from "../redux/authSlice";
 import {
+  CHANGE_QUESTION_BANK_LIST_STATUS_API,
+  GET_CLIENT_LIST_API,
+  ROOT_URL,
+} from "../constants/apiConstants";
+import {
+  getClientList,
+  getSuccessLoggedIn,
+  getUserInfo,
+} from "../redux/authSlice";
+import {
+  GET_TOKEN_FROM_LOCAL,
   SET_TOKEN_IN_LOCAL,
   errorToast,
   successToast,
 } from "../utils/projectHelper";
+import { getUserList } from "../redux/userListSlice";
+import api from "../utils/apiHelper";
+
 export const postMethodApi = async (
   url,
   payload,
@@ -32,14 +44,15 @@ export const postMethodApi = async (
   } catch (error) {
     if (error.response?.data?.statusCode === 404) {
       errorToast(error.response?.data?.message);
-    } 
+    }
     console.error("Error:", error.response?.data?.message);
     throw error;
   }
 };
 
-export const getMethodApi = async (url, payload = null, setData, token) => {
+export const getMethodApi = async (url = null, payload = null, dispatch) => {
   try {
+    const token = GET_TOKEN_FROM_LOCAL();
     const response = await axios.get(`${ROOT_URL}/${url}`, {
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +60,7 @@ export const getMethodApi = async (url, payload = null, setData, token) => {
       },
     });
     if (response?.data?.statusCode === 200) {
-      setData(response?.data);
+      dispatch(getUserList(response?.data?.details));
     }
   } catch (error) {
     console.log("err", error);
@@ -55,51 +68,32 @@ export const getMethodApi = async (url, payload = null, setData, token) => {
   }
 };
 
-// export const request = async (endpoint, method, data = null, headers = {}, setData) => {
-//   try {
-//     const url = `${ROOT_URL}/${endpoint}`;
-//     const config = {
-//       method: method.toUpperCase(),
-//       url: url,
-//       headers: {
-//         "Content-Type": "application/json",
-//         ...headers,
-//       },
-//       data: data,
-//     };
-//     console.log("Data", data);
-//     const response = await axios(config);
+export const clientListApi = () => (dispatch) => {
+  api()
+    .root(ROOT_URL)
+    .get(`${GET_CLIENT_LIST_API}?page=${2}&limit=${10}`)
+    .success((a) => {
+      dispatch(getClientList(a?.details));
+    })
+    .error((e) => {
+      errorToast(e);
+    })
+    .send();
+};
 
-//     if (setData) {
-//       setData(response.data);
-//     }
-
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error:", error);
-//     throw error;
-//   }
-// };
-
-// Example usage:
-// GET request
-// request("https://api.example.com/data", "GET")
-//   .then((data) => console.log(data))
-//   .catch((error) => console.error(error));
-
-// // POST request
-// const postData = { name: "John", age: 30 };
-// request("https://api.example.com/data", "POST", postData)
-//   .then((data) => console.log(data))
-//   .catch((error) => console.error(error));
-
-// // PUT request
-// const putData = { id: 123, name: "Jane", age: 25 };
-// request("https://api.example.com/data/123", "PUT", putData)
-//   .then((data) => console.log(data))
-//   .catch((error) => console.error(error));
-
-// // DELETE request
-// request("https://api.example.com/data/123", "DELETE")
-//   .then(() => console.log("Deleted successfully"))
-//   .catch((error) => console.error(error));
+export const qbStatusChangeApi = (formValues) => () => {
+  api()
+    .root(ROOT_URL)
+    .post(CHANGE_QUESTION_BANK_LIST_STATUS_API)
+    .data(formValues)
+    .success((a) => {
+      console.log("response", a);
+    })
+    .error((e) => {
+      const { error } = e;
+      errorToast(error);
+    })
+    .send(() => { 
+      
+    });
+};

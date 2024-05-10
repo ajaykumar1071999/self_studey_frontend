@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { postMethodApi } from "../../../api";
+import { clientListApi, postMethodApi, qbStatusChangeApi } from "../../../api";
 import { USER_LOGIN_API } from "../../../constants/apiConstants";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import GithubStats from "../githubStatus";
 function Login() {
   const initialFormValues = {
     username: "",
     password: "",
   };
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [data, setData] = useState([])
-
+  const [data, setData] = useState([]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -27,14 +26,16 @@ function Login() {
     setFormValues(initialFormValues);
   };
   const handleSubmit = async () => {
-    await postMethodApi(
-      USER_LOGIN_API,
-      formValues,
-      setData,
-      clearAll,
-      navigate,
-      dispatch
-    );
+    dispatch(clientListApi(formValues));
+    // dispatch(qbStatusChangeApi(formValues));
+    //   await postMethodApi(
+    //     USER_LOGIN_API,
+    //     formValues,
+    //     setData,
+    //     clearAll,
+    //     navigate,
+    //     dispatch
+    //   );
   };
 
   return (
@@ -54,6 +55,7 @@ function Login() {
         />
         <button onClick={handleSubmit}>Login</button>
       </div>
+      <GithubStats />
     </>
   );
 }

@@ -11,8 +11,10 @@ import { GET_TOKEN_FROM_LOCAL } from "./utils/projectHelper";
 import { ToastContainer } from "react-toastify";
 import { adminRoute } from "./routes/admin";
 import { guestRoute } from "./routes/guestRoute";
+import LazyLoader from "./components/lazyLoader";
 function App() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { isSuccessLoggedIn } = useSelector(authSelector);
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -32,9 +34,9 @@ function App() {
   const router = useRoutes(isSuccessLoggedIn ? adminRoute : guestRoute);
 
   return (
-    <>  
+    <>
+      {<LazyLoader>{router}</LazyLoader>}
       <ToastContainer />
-      {router}
     </>
   );
 }

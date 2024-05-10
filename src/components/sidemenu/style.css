@@ -1,11 +1,13 @@
 .vertical-menu {
   width: 250px;
-  height: 50vh;
+  height: 100%;
   overflow-y: auto;
   background-color: #f8f4f4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 0px 8px;
 }
-
-.vertical-menu div p{
+.vertical-menu div p {
   background-color: #eee;
   color: black;
   display: block;
@@ -16,9 +18,11 @@
 
 .vertical-menu div p:hover {
   background-color: #ccc;
+  border-radius: 10px;
 }
 
 .vertical-menu div p.active {
   background: linear-gradient(90deg, #13b8ff 0%, #048bc3 113.68%);
   color: white;
+  border-radius: 10px;
 }

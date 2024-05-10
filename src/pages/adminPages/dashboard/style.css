@@ -1,0 +1,17 @@
+& .table-wrapper {
+  box-sizing: border-box;
+
+  & table {
+    border: solid red 1px;
+    height: 50%;
+    width: 70%;
+    box-sizing: border-box;
+    padding: 10px;
+
+    & thead {
+      background-color: #9cc5d8;
+      text-align: center;
+      border: solid red 1px;
+    }
+  }
+}

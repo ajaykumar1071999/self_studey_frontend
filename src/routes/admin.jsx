@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import AdminLayout from "../components/layout/adminLayout";
 import NotFoundPage from "../components/noteFoundPage";
 import {
@@ -5,10 +6,9 @@ import {
   PRODUCT_LIST_PAGE,
   USERS_LIST_PAGE,
 } from "../constants/routeConstants";
-import Dashboard from "../pages/adminPages/dashboard";
-import Products from "../pages/adminPages/product";
-import UsersList from "../pages/adminPages/user/list";
-
+const Dashboard = lazy(() => import("../pages/adminPages/dashboard"));
+const Products = lazy(() => import("../pages/adminPages/product"));
+const UsersList = lazy(() => import("../pages/adminPages/user/list"));
 export const adminRoute = [
   {
     path: "/",

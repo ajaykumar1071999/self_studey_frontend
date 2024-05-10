@@ -1,10 +1,12 @@
 .main-layout {
   position: absolute;
-  left: 250px;
-  top: 100px;
-  width: calc(100% - 255px);
-  border: solid rgb(176, 174, 174) 1px;
-  background-color: rgb(176, 174, 174);
-  height: 100vh;
-  border-radius: 10px;
+    left: 250px;
+    top: 100px;
+    width: calc(100% - 255px);
+    border: solid rgb(176, 174, 174) 1px;
+    background-color: #f7f8fb;
+    height: 100vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
 }

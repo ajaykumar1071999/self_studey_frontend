@@ -16,7 +16,7 @@ function SidebarMenu() {
       label: "Dashboard",
       path: ADMIN_DASHBOARD_PAGE,
       isActive:
-        pathname === ADMIN_DASHBOARD_PAGE ||
+        pathname === "/" ||
         pathname.includes(ADMIN_DASHBOARD_PAGE),
     },
     {
@@ -28,42 +28,7 @@ function SidebarMenu() {
       label: "Products",
       path: PRODUCT_LIST_PAGE,
       isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
-    {
-      label: "Products",
-      path: PRODUCT_LIST_PAGE,
-      isActive: pathname.includes(PRODUCT_LIST_PAGE),
-    },
+    }
   ];
 
   const handleClickMenu = (path) => {
